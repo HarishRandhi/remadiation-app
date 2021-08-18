@@ -1,0 +1,210 @@
+<p>
+  <mat-toolbar color="primary">
+    <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    </button> -->
+
+    <span> <mat-icon>code</mat-icon> JS Code Generator App </span>
+    <span class="example-spacer"></span>
+    <button
+      mat-icon-button
+      class="example-icon favorite-icon"
+      aria-label="Example icon-button with heart icon"
+    >
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      class="example-icon"
+      aria-label="Example icon-button with share icon"
+    >
+      <mat-icon>share</mat-icon>
+    </button>
+  </mat-toolbar>
+</p>
+<div>
+  <div>
+    <mat-form-field appearance="fill" class="example-full-width">
+      <mat-label>Element Type</mat-label>
+      <mat-select
+        [(value)]="sourceElement"
+        name="elementSelect"
+        (selectionChange)="elementSelectChange($event)"
+      >
+        <input type="text" (keyup)="onKey($event.target.value)" />
+        <mat-option
+          *ngFor="let elementSelect of filterElementTypes"
+          [value]="elementSelect.id"
+        >
+          {{ elementSelect.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <form class="example-form">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Element Type</mat-label>
+        <input
+          type="text"
+          matInput
+          [formControl]="sourceElement"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option
+            *ngFor="let elementSelect of elementTypes"
+            [value]="elementSelect.value"
+          >
+            {{ elementSelect.value }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form> -->
+  </div>
+  <div *ngIf="sourceElement == 1 || sourceElement == 4 || sourceElement == 5">
+    <mat-form-field appearance="fill" class="example-full-width">
+      <mat-label>Select Selector</mat-label>
+      <mat-select [(value)]="selector">
+        <mat-option *ngFor="let selector of selectors" [value]="selector.id">
+          {{ selector.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <br />
+    <br />
+    <mat-form-field class="example-full-width">
+      <mat-label>Selector Value</mat-label>
+      <input
+        [(ngModel)]="selectorValue"
+        matInput
+        placeholder="Ex. Id to select, Class Name"
+      />
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill" class="example-full-width">
+      <mat-label>Select Property</mat-label>
+      <mat-select [(value)]="property">
+        <mat-option
+          *ngFor="let property of getProperties()"
+          [value]="property.id"
+        >
+          {{ property.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <br />
+    <mat-form-field class="example-full-width">
+      <mat-label>Property Value</mat-label>
+      <input
+        [(ngModel)]="propertyValue"
+        matInput
+        placeholder="Ex. Name of image"
+      />
+    </mat-form-field>
+    <br />
+  </div>
+  <div *ngIf="sourceElement == 2">
+    <mat-form-field class="example-full-width">
+      <mat-label>Title Value</mat-label>
+      <input [(ngModel)]="titleValue" matInput placeholder="Enter title" />
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="sourceElement == 3">
+    <mat-form-field class="example-full-width">
+      <mat-label>Language Code Value</mat-label>
+      <input
+        [(ngModel)]="pageLanguage"
+        matInput
+        placeholder="Enter language code"
+      />
+    </mat-form-field>
+  </div>
+  <div *ngIf="sourceElement == 6">
+    <mat-form-field class="example-full-width">
+      <mat-label>Tab Index Value</mat-label>
+      <input [(ngModel)]="tabIndex" matInput placeholder="Enter tab Index" />
+    </mat-form-field>
+  </div>
+  <div *ngIf="sourceElement == 16">
+    <mat-form-field class="example-full-width">
+      <mat-label>DT DD in DL Value</mat-label>
+      <input [(ngModel)]="dTDDValue" matInput placeholder="Enter DL Value" />
+    </mat-form-field>
+  </div>
+  <div
+    *ngIf="
+      sourceElement == 7 ||
+      sourceElement == 8 ||
+      sourceElement == 9 ||
+      sourceElement == 10 ||
+      sourceElement == 11 ||
+      sourceElement == 12 ||
+      sourceElement == 13 ||
+      sourceElement == 15 ||
+      sourceElement == 17 ||
+      sourceElement == 18
+    "
+  >
+    <br />
+    <mat-form-field class="example-full-width">
+      <mat-label>Selector Value</mat-label>
+      <input
+        [(ngModel)]="selectorValue"
+        matInput
+        placeholder="Ex. Id to select, Class Name"
+      />
+    </mat-form-field>
+    <br />
+
+    <mat-form-field class="example-full-width">
+      <mat-label>{{ getLabelName() }}</mat-label>
+      <input [(ngModel)]="propertyValue" matInput />
+    </mat-form-field>
+    <br />
+  </div>
+
+  <div *ngIf="sourceElement == 14">
+    <mat-form-field class="example-full-width">
+      <mat-label>Selector Value</mat-label>
+      <input [(ngModel)]="selectorValue" matInput placeholder="" />
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill" class="example-full-width">
+      <mat-label>Select Property</mat-label>
+      <mat-select [(value)]="property">
+        <mat-option
+          *ngFor="let property of getProperties()"
+          [value]="property.id"
+        >
+          {{ property.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Enter Value</mat-label>
+      <input
+        [(ngModel)]="attributeValue"
+        matInput
+        placeholder="Ex. Id to select, Class Name"
+      />
+    </mat-form-field>
+  </div>
+  <div class="example-button-row">
+    <button mat-button color="primary" (click)="generateCode()">
+      Generate Code
+    </button>
+    <button *ngIf="code" mat-button color="primary" (click)="clear()">
+      Clear
+    </button>
+  </div>
+  <br /><br />
+  <mat-form-field class="example-full-width" *ngIf="code">
+    <!-- <mat-label>Code</mat-label> -->
+    <button mat-button color="primary" (click)="copyCode()">
+      Copy Code <mat-icon>content_copy</mat-icon>
+    </button>
+    <textarea rows="10" cols="25" [(ngModel)]="code" matInput></textarea>
+  </mat-form-field>
+  <br />
+</div>
